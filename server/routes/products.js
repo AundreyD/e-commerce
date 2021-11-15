@@ -10,8 +10,9 @@ router.get(`/`, async (req, res) => {
     }
     res.send(productList)
 })
+
 router.get(`/:id`, async (req, res) => {
-    const product = await Product.findById(req.params.id)
+    const product = await Product.findByIdAndUpdate(req.params.id)
     if(!product) {
         res.status(500).json({success: false})
     }
@@ -22,5 +23,14 @@ router.post(`/`, (req, res) => {
     const newProduct = req.body;
     res.send(newProduct)
 })
+
+router.put(`/:id`, (req, res) => {
+    const product = await Product.findById(req.params.id)
+    if(!product) {
+        res.status(404).send('Product not updated')
+    }
+})
+
+router.delete()
 
 export const productsRoutes = router;
